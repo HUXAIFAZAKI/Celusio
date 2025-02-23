@@ -12,6 +12,7 @@ import { pricingPlans } from "@/data/pricing";
 import { stats } from "@/data/stats";
 import FeatureCard from "@/components/FeatureCard";
 import PricingCard from "@/components/PricingCard";
+import Lines from "@/public/Lines.jpg";
 
 export default function Page() {
   return (
@@ -21,6 +22,7 @@ export default function Page() {
 
       <main className="flex-1">
         {/* Hero Section */}
+
         <section className="container py-24">
           <motion.div
             className="grid lg:grid-cols-2 gap-8 items-center"
