@@ -1,100 +1,374 @@
+"use client";
+
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Star, Users, Shield, Zap, Box, BarChart3 } from "lucide-react";
+import { motion } from "framer-motion";
 
-export default function Home() {
+const fadeIn = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.5 },
+};
+
+const staggerChildren = {
+  animate: {
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+export default function Page() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="flex min-h-screen flex-col">
+      {/* Navigation */}
+      <header className="container flex h-16 items-center justify-between">
+        <div className="flex items-center gap-2">
+          <div className="h-8 w-8">
+            {/* <Image
+//               src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Design.jpg-vSVR5IySRXNFYp4hEFjXnsXzqGHfDM.jpeg"
+//               alt="Logo"
+//               width={32}
+//               height={32}
+//               className="rounded"
+//             /> */}
+          </div>
+          <span className="text-xl font-semibold">Celusio</span>
         </div>
+        <nav className="hidden md:flex items-center gap-6">
+          <a href="#" className="text-sm font-medium hover:text-primary">
+            About Us
+          </a>
+          <a href="#" className="text-sm font-medium hover:text-primary">
+            Features
+          </a>
+          <a href="#" className="text-sm font-medium hover:text-primary">
+            Contact Us
+          </a>
+        </nav>
+        <Button size="sm" className="bg-primary hover:bg-primary/90">
+          Get Started
+        </Button>
+      </header>
+
+      <main className="flex-1">
+        {/* Hero Section */}
+        <section className="container py-24">
+          <motion.div
+            className="grid lg:grid-cols-2 gap-8 items-center"
+            initial="initial"
+            animate="animate"
+            variants={staggerChildren}
+          >
+            <motion.div className="space-y-8" variants={fadeIn}>
+              <h1 className="text-5xl font-bold tracking-tight text-gray-900">
+                Tell a better brand story
+              </h1>
+              <p className="text-lg text-gray-600">
+                Elevate your brand's digital footprint with our integrated
+                marketing solutions that deliver measurable results
+              </p>
+              <div className="flex gap-4">
+                <Button size="lg" className="bg-primary hover:bg-primary/90">
+                  Get Started
+                </Button>
+                <Button size="lg" variant="outline">
+                  Learn More
+                </Button>
+              </div>
+            </motion.div>
+            <motion.div
+              className="relative h-[500px]"
+              variants={fadeIn}
+              transition={{ delay: 0.2 }}
+            >
+              <div className="absolute inset-0">
+                <Image
+                  src="/placeholder.svg"
+                  alt="Analytics Dashboard"
+                  fill
+                  className="object-contain"
+                />
+              </div>
+            </motion.div>
+          </motion.div>
+        </section>
+
+        {/* Partners Section */}
+        <section className="border-y bg-gray-50/50">
+          <div className="container py-12">
+            <div className="flex justify-between items-center gap-8 opacity-70">
+              <Image
+                src="/placeholder.svg"
+                alt="Partner 1"
+                width={120}
+                height={40}
+              />
+              <Image
+                src="/placeholder.svg"
+                alt="Partner 2"
+                width={120}
+                height={40}
+              />
+              <Image
+                src="/placeholder.svg"
+                alt="Partner 3"
+                width={120}
+                height={40}
+              />
+              <Image
+                src="/placeholder.svg"
+                alt="Partner 4"
+                width={120}
+                height={40}
+              />
+              <Image
+                src="/placeholder.svg"
+                alt="Partner 5"
+                width={120}
+                height={40}
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* Features Section */}
+        <section className="container py-24">
+          <motion.div
+            className="text-center mb-16"
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+            variants={fadeIn}
+          >
+            <h2 className="text-3xl font-bold mb-4">What we Offer?</h2>
+            <p className="text-gray-600">
+              A unified space through communication platforms. Enable realtime
+              that smart brand marketing geographics live.
+            </p>
+          </motion.div>
+          <motion.div
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+            variants={staggerChildren}
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+          >
+            {[
+              {
+                icon: <Users className="h-6 w-6" />,
+                title: "Community Support",
+                description:
+                  "24/7 real-time support for all your marketing needs",
+              },
+              {
+                icon: <Shield className="h-6 w-6" />,
+                title: "Security First",
+                description:
+                  "Enterprise-grade security protocols and data protection",
+              },
+              {
+                icon: <Zap className="h-6 w-6" />,
+                title: "24/7 Expert Support",
+                description:
+                  "Round-the-clock assistance from our marketing experts",
+              },
+              {
+                icon: <Star className="h-6 w-6" />,
+                title: "NPS Tracking",
+                description: "Monitor and improve customer satisfaction scores",
+              },
+              {
+                icon: <Box className="h-6 w-6" />,
+                title: "Fully Integrated",
+                description: "Seamless integration with your existing tools",
+              },
+              {
+                icon: <BarChart3 className="h-6 w-6" />,
+                title: "Monthly Updates",
+                description:
+                  "Regular feature updates and performance improvements",
+              },
+            ].map((feature, index) => (
+              <motion.div key={index} variants={fadeIn}>
+                <Card className="p-6 hover:shadow-lg transition-shadow duration-300">
+                  <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-4">
+                    {feature.icon}
+                  </div>
+                  <h3 className="font-semibold mb-2">{feature.title}</h3>
+                  <p className="text-sm text-gray-600">{feature.description}</p>
+                </Card>
+              </motion.div>
+            ))}
+          </motion.div>
+        </section>
+
+        {/* Pricing Section */}
+        <section className="container py-24">
+          <motion.div
+            className="text-center mb-16"
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+            variants={fadeIn}
+          >
+            <h2 className="text-3xl font-bold mb-4">
+              Our plans scale with your product
+            </h2>
+            <p className="text-gray-600">
+              A unified space through communication platforms
+            </p>
+          </motion.div>
+          <motion.div
+            className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto"
+            variants={staggerChildren}
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+          >
+            {[
+              {
+                title: "For Starter",
+                price: "$59",
+                features: [
+                  "Analytics Dashboard",
+                  "Feature Integration",
+                  "Customer Support",
+                  "Marketing Templates",
+                ],
+              },
+              {
+                title: "For Teams",
+                price: "$99",
+                features: [
+                  "Advanced Analytics",
+                  "Priority Support",
+                  "Custom Integration",
+                  "Marketing Automation",
+                ],
+                featured: true,
+              },
+              {
+                title: "For Company",
+                price: "Custom",
+                features: [
+                  "Enterprise Features",
+                  "Dedicated Support",
+                  "Custom Development",
+                  "SLA Agreement",
+                ],
+              },
+            ].map((plan, index) => (
+              <motion.div key={index} variants={fadeIn}>
+                <Card
+                  className={`p-8 ${
+                    plan.featured
+                      ? "bg-primary text-primary-foreground scale-105 shadow-lg"
+                      : ""
+                  } hover:shadow-xl transition-shadow duration-300`}
+                >
+                  <h3 className="font-semibold mb-2">{plan.title}</h3>
+                  <div className="text-3xl font-bold mb-4">{plan.price}</div>
+                  <ul className="space-y-2 mb-8">
+                    {plan.features.map((feature, i) => (
+                      <li key={i} className="flex items-center gap-2">
+                        <Star className="h-4 w-4" />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                  <Button
+                    className={`w-full ${
+                      plan.featured
+                        ? "bg-white text-primary hover:bg-white/90"
+                        : ""
+                    }`}
+                    variant={plan.featured ? "secondary" : "default"}
+                  >
+                    Get Started
+                  </Button>
+                </Card>
+              </motion.div>
+            ))}
+          </motion.div>
+        </section>
+
+        {/* Stats Section */}
+        <section className="container py-24">
+          <motion.div
+            className="grid md:grid-cols-3 gap-8 text-center"
+            variants={staggerChildren}
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+          >
+            {[
+              { value: "25,356", label: "Projects Done" },
+              { value: "1M+", label: "Projects Done" },
+              { value: "95%", label: "Happy Customers" },
+            ].map((stat, index) => (
+              <motion.div key={index} variants={fadeIn}>
+                <div className="text-4xl font-bold mb-2">{stat.value}</div>
+                <div className="text-gray-600">{stat.label}</div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="container py-24">
+          <motion.div
+            className="text-center"
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+            variants={fadeIn}
+          >
+            <h2 className="text-3xl font-bold mb-4">
+              Want to start a Project With us?
+            </h2>
+            <p className="text-gray-600 mb-8">
+              Elevate your project growth limited contact in region to.
+              Supported our seamless behavior determine available in catalogue.
+            </p>
+            <Button size="lg" className="bg-primary hover:bg-primary/90">
+              Get Started
+            </Button>
+          </motion.div>
+        </section>
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+
+      {/* Footer */}
+      <footer className="border-t">
+        <div className="container py-8">
+          <div className="flex justify-between items-center">
+            <div className="flex items-center gap-2">
+              <div className="h-8 w-8">
+                {/* <Image
+//                   src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Design.jpg-vSVR5IySRXNFYp4hEFjXnsXzqGHfDM.jpeg"
+//                   alt="Logo"
+//                   width={32}
+//                   height={32}
+//                   className="rounded"
+//                 /> */}
+              </div>
+              <span className="text-xl font-semibold">Celusio</span>
+            </div>
+            <nav className="flex gap-6">
+              <a href="#" className="text-sm text-gray-600 hover:text-primary">
+                Terms
+              </a>
+              <a href="#" className="text-sm text-gray-600 hover:text-primary">
+                Privacy
+              </a>
+              <a href="#" className="text-sm text-gray-600 hover:text-primary">
+                Contact
+              </a>
+            </nav>
+          </div>
+        </div>
       </footer>
     </div>
   );
