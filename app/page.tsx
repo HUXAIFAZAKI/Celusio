@@ -6,15 +6,26 @@ import { Button } from "@/components/ui/button";
 import { fadeIn, staggerChildren } from "@/lib/animations";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import TestimonialsSection from "@/components/Testimonials";
 import { features } from "@/data/features";
 import { pricingPlans } from "@/data/pricing";
 import { stats } from "@/data/stats";
 import FeatureCard from "@/components/FeatureCard";
 import PricingCard from "@/components/PricingCard";
-import Lines from "@/public/Lines.jpg";
+import dynamic from "next/dynamic";
+import { useState } from "react";
+
+const TestimonialsSection = dynamic(() => import("@/components/Testimonials"), {
+  loading: () => <p>Loading testimonials...</p>,
+});
+
+const CountUp = dynamic(() => import("react-countup"), {
+  ssr: false,
+});
 
 export default function Page() {
+  const [isAnnual, setIsAnnual] = useState(true);
+  console.log(stats);
+
   return (
     <div className="flex min-h-screen flex-col bg-gradient-to-br from-purple-50 to-white overflow-hidden">
       {/* Header */}
@@ -22,7 +33,6 @@ export default function Page() {
 
       <main className="flex-1">
         {/* Hero Section */}
-
         <section className="container py-24">
           <motion.div
             className="grid lg:grid-cols-2 gap-8 items-center"
@@ -39,12 +49,22 @@ export default function Page() {
                 marketing solutions that deliver measurable results.
               </p>
               <div className="flex gap-4">
-                <Button size="lg" className="bg-primary hover:bg-primary/90">
-                  Get Started
-                </Button>
-                <Button size="lg" variant="outline">
-                  Learn More
-                </Button>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Button size="lg" className="bg-primary hover:bg-primary/90">
+                    Get Started
+                  </Button>
+                </motion.div>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Button size="lg" variant="outline">
+                    Learn More
+                  </Button>
+                </motion.div>
               </div>
             </motion.div>
             <motion.div
@@ -53,12 +73,13 @@ export default function Page() {
               transition={{ delay: 0.2 }}
             >
               <div className="absolute inset-0">
-                <Image
-                  src="/placeholder.svg"
-                  alt="Analytics Dashboard"
+                {/* <Image
+                  src="/hero-image.png" 
+                  alt="Hero Image"
                   fill
                   className="object-contain"
-                />
+                  priority
+                /> */}
               </div>
             </motion.div>
           </motion.div>
@@ -73,10 +94,11 @@ export default function Page() {
                 .map((_, i) => (
                   <Image
                     key={i}
-                    src="/placeholder.svg"
+                    src={`/partner-logo-${i + 1}.png`}
                     alt={`Partner ${i + 1}`}
                     width={120}
                     height={40}
+                    loading="lazy"
                   />
                 ))}
             </div>
@@ -106,7 +128,12 @@ export default function Page() {
             viewport={{ once: true }}
           >
             {features.map((feature, index) => (
-              <motion.div key={index} variants={fadeIn}>
+              <motion.div
+                key={index}
+                variants={fadeIn}
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.2 }}
+              >
                 <FeatureCard
                   icon={feature.icon}
                   title={feature.title}
@@ -132,6 +159,14 @@ export default function Page() {
             <p className="text-gray-600">
               Choose the right plan for your growth.
             </p>
+            <div className="flex justify-center mt-4">
+              <Button
+                onClick={() => setIsAnnual(!isAnnual)}
+                variant={isAnnual ? "default" : "outline"}
+              >
+                {isAnnual ? "Annual" : "Monthly"}
+              </Button>
+            </div>
           </motion.div>
           <motion.div
             className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto"
@@ -142,7 +177,10 @@ export default function Page() {
           >
             {pricingPlans.map((plan, index) => (
               <motion.div key={index} variants={fadeIn}>
-                <PricingCard plan={plan} />
+                <PricingCard
+                  plan={plan}
+                  className={plan.recommended ? "border-2 border-primary" : ""}
+                />
               </motion.div>
             ))}
           </motion.div>
@@ -163,7 +201,14 @@ export default function Page() {
             >
               {stats.map((stat, index) => (
                 <motion.div key={index} variants={fadeIn}>
-                  <div className="text-4xl font-bold mb-2">{stat.value}</div>
+                  <div className="text-4xl font-bold mb-2">
+                    {typeof window !== "undefined" ? (
+                      <CountUp end={stat.value} duration={2} separator="," />
+                    ) : (
+                      stat.value
+                    )}
+                    {stat.label === "Happy Customers" && "%"}
+                  </div>
                   <div className="text-gray-600">{stat.label}</div>
                 </motion.div>
               ))}
@@ -171,24 +216,25 @@ export default function Page() {
           </section>
 
           {/* CTA Section */}
-          <section className="container py-10">
-            <motion.div
-              className="text-center"
-              initial="initial"
-              whileInView="animate"
-              viewport={{ once: true }}
-              variants={fadeIn}
-            >
-              <h2 className="text-3xl font-bold mb-4">
-                Want to Start a Project With Us?
-              </h2>
-              <p className="text-gray-600 mb-8">
-                Let’s build something amazing together.
-              </p>
-              <Button size="lg" className="bg-primary hover:bg-primary/90">
-                Get Started
-              </Button>
-            </motion.div>
+          <section className="bg-[url('/cta-bg.jpg')] bg-cover bg-center py-24">
+            <div className="container text-center">
+              <motion.div
+                initial="initial"
+                whileInView="animate"
+                viewport={{ once: true }}
+                variants={fadeIn}
+              >
+                <h2 className="text-3xl font-bold mb-4">
+                  Want to Start a Project With Us?
+                </h2>
+                <p className="text-gray-600 mb-8">
+                  Let’s build something amazing together.
+                </p>
+                <Button size="lg" className="bg-primary hover:bg-primary/90">
+                  Get Started
+                </Button>
+              </motion.div>
+            </div>
           </section>
         </div>
       </main>

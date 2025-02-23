@@ -8,14 +8,25 @@ import { motion } from "framer-motion";
 export default function TestimonialsSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(getItemsPerPage());
-
-  const totalPages = Math.ceil(testimonials.length / itemsPerPage);
+  const [filteredTestimonials, setFilteredTestimonials] =
+    useState(testimonials);
 
   useEffect(() => {
-    const handleResize = () => setItemsPerPage(getItemsPerPage());
+    const handleResize = () => {
+      setItemsPerPage(getItemsPerPage());
+      if (window.innerWidth < 768) {
+        setFilteredTestimonials(testimonials.slice(0, 3));
+      } else {
+        setFilteredTestimonials(testimonials);
+      }
+    };
+
+    handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  const totalPages = Math.ceil(filteredTestimonials.length / itemsPerPage);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -35,7 +46,7 @@ export default function TestimonialsSection() {
 
   function nextSlide() {
     setCurrentIndex((prevIndex) =>
-      prevIndex + itemsPerPage >= testimonials.length
+      prevIndex + itemsPerPage >= filteredTestimonials.length
         ? 0
         : prevIndex + itemsPerPage
     );
@@ -51,12 +62,11 @@ export default function TestimonialsSection() {
 
   function getItemsPerPage() {
     if (typeof window === "undefined") return 3;
-    if (window.innerWidth >= 1024) return 3;
-    if (window.innerWidth >= 768) return 2;
+    if (window.innerWidth >= 768) return 3;
     return 1;
   }
 
-  const currentTestimonials = testimonials.slice(
+  const currentTestimonials = filteredTestimonials.slice(
     currentIndex,
     currentIndex + itemsPerPage
   );
@@ -80,7 +90,7 @@ export default function TestimonialsSection() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 50 }}
             transition={{ duration: 0.5 }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-6"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
           >
             {currentTestimonials.map((testimonial, index) => (
               <Card key={index} className="border-none shadow-sm">

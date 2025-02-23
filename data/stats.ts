@@ -1,5 +1,5 @@
 export const stats = [
-  { value: "25,356", label: "Projects Done" },
-  { value: "1M+", label: "Users Reached" },
-  { value: "95%", label: "Happy Customers" },
+  { value: 25356, label: "Projects Done" },
+  { value: 1000, label: "Users Reached" },
+  { value: 95, label: "Happy Customers" },
 ];
